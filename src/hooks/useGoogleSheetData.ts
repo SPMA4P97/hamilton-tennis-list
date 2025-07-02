@@ -16,6 +16,9 @@ interface CourtData {
   description: string;
   latitude?: number;
   longitude?: number;
+  seasonalOpportunity?: string;
+  lighting?: string;
+  lineMarkings?: string;
 }
 
 export const useGoogleSheetData = () => {
@@ -47,16 +50,19 @@ export const useGoogleSheetData = () => {
             name: values[3] || 'Unnamed Court', // Location Name
             location: values[4] || 'Unknown Location', // Address
             address: values[4] || '', // Address
-            phone: '', // Not in sheet
+            phone: '', // Not displayed
             courtType: values[12] || 'Hard', // Court Type
             numberOfCourts: parseInt(values[8]) || 1, // Total Courts #
             amenities: values[11] ? [values[11]] : [], // Lighting as amenity
-            priceRange: values[5] === 'Membership' ? '£££' : values[5] === 'Rental' ? '££' : '£', // Cost
+            priceRange: '', // Not displayed
             rating: 4.0, // Default rating
             image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', // Default image
             description: values[17] || `${values[1]} facility`, // Location Notes or Classification
             latitude: values[18] ? parseFloat(values[18]) : undefined, // Latitude
             longitude: values[19] ? parseFloat(values[19]) : undefined, // Longitude
+            seasonalOpportunity: values[10] || 'All Year', // Seasonal Opportunity
+            lighting: values[11] || 'No', // Lighting
+            lineMarkings: values[14] || 'Tennis', // Lines?
           };
           
           return court;
