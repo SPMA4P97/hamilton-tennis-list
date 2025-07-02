@@ -37,22 +37,26 @@ export const useGoogleSheetData = () => {
         const parsedCourts: CourtData[] = lines.slice(1).map((line, index) => {
           const values = line.split(',').map(value => value.replace(/"/g, '').trim());
           
-          // Map the values based on expected column order
+          // Map the values based on actual column order:
+          // Confirmed, Classification, Open?, Location Name, Address, Cost, Outdoor Courts #, Indoor Courts #, Total Courts #, 
+          // Indoor/Outdoor/Both, Seasonal Opportunity, Lighting, Court Type, Court Type Notes, Lines?, Condition /10, 
+          // Surfaced?, Location Notes, Latitude, Longitude, Confirmed Lat/Long., Club LINK, Ward, Ward Pop. Serve
+          
           const court: CourtData = {
             id: index + 1,
-            name: values[0] || 'Unnamed Court',
-            location: values[1] || 'Unknown Location',
-            address: values[2] || '',
-            phone: values[3] || '',
-            courtType: values[4] || 'Hard',
-            numberOfCourts: parseInt(values[5]) || 1,
-            amenities: values[6] ? values[6].split(';').map(a => a.trim()) : [],
-            priceRange: values[7] || '££',
-            rating: parseFloat(values[8]) || 4.0,
-            image: values[9] || 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop',
-            description: values[10] || 'Tennis court facility',
-            latitude: values[11] ? parseFloat(values[11]) : undefined,
-            longitude: values[12] ? parseFloat(values[12]) : undefined,
+            name: values[3] || 'Unnamed Court', // Location Name
+            location: values[4] || 'Unknown Location', // Address
+            address: values[4] || '', // Address
+            phone: '', // Not in sheet
+            courtType: values[12] || 'Hard', // Court Type
+            numberOfCourts: parseInt(values[8]) || 1, // Total Courts #
+            amenities: values[11] ? [values[11]] : [], // Lighting as amenity
+            priceRange: values[5] === 'Membership' ? '£££' : values[5] === 'Rental' ? '££' : '£', // Cost
+            rating: 4.0, // Default rating
+            image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', // Default image
+            description: values[17] || `${values[1]} facility`, // Location Notes or Classification
+            latitude: values[18] ? parseFloat(values[18]) : undefined, // Latitude
+            longitude: values[19] ? parseFloat(values[19]) : undefined, // Longitude
           };
           
           return court;
