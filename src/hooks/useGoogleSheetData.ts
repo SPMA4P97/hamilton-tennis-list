@@ -40,10 +40,9 @@ export const useGoogleSheetData = () => {
         const parsedCourts: CourtData[] = lines.slice(1).map((line, index) => {
           const values = line.split(',').map(value => value.replace(/"/g, '').trim());
           
-          // Map the values based on actual column order:
-          // Confirmed, Classification, Open?, Location Name, Address, Cost, Outdoor Courts #, Indoor Courts #, Total Courts #, 
-          // Indoor/Outdoor/Both, Seasonal Opportunity, Lighting, Court Type, Court Type Notes, Lines?, Condition /10, 
-          // Surfaced?, Location Notes, Latitude, Longitude, Confirmed Lat/Long., Club LINK, Ward, Ward Pop. Serve
+          // Clean up court type - remove "facility" mentions
+          const rawCourtType = values[12] || 'Hard';
+          const cleanCourtType = rawCourtType.replace(/\s*facility\s*/gi, '').trim();
           
           const court: CourtData = {
             id: index + 1,
@@ -51,13 +50,13 @@ export const useGoogleSheetData = () => {
             location: values[4] || 'Unknown Location', // Address
             address: values[4] || '', // Address
             phone: '', // Not displayed
-            courtType: values[12] || 'Hard', // Court Type
+            courtType: cleanCourtType, // Court Type (cleaned)
             numberOfCourts: parseInt(values[8]) || 1, // Total Courts #
             amenities: values[11] ? [values[11]] : [], // Lighting as amenity
             priceRange: '', // Not displayed
             rating: 4.0, // Default rating
             image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', // Default image
-            description: values[17] || `${values[1]} facility`, // Location Notes or Classification
+            description: values[17] || `${values[1]}`, // Location Notes or Classification
             latitude: values[18] ? parseFloat(values[18]) : undefined, // Latitude
             longitude: values[19] ? parseFloat(values[19]) : undefined, // Longitude
             seasonalOpportunity: values[10] || 'All Year', // Seasonal Opportunity

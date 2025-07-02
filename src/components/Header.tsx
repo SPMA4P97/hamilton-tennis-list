@@ -28,7 +28,7 @@ export const Header = () => {
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
-              Courts
+              Home
             </Link>
             <Link
               to="/map"
