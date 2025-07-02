@@ -1,10 +1,9 @@
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { CourtCard } from "@/components/CourtCard";
 import { EnhancedFilterSection } from "@/components/EnhancedFilterSection";
 import { Header } from "@/components/Header";
-import { MapView } from "@/components/MapView";
 import { useGoogleSheetData } from "@/hooks/useGoogleSheetData";
 
 const Index = () => {
@@ -14,16 +13,6 @@ const Index = () => {
   const [selectedSeasonalOpportunity, setSelectedSeasonalOpportunity] = useState("All");
   const [selectedLighting, setSelectedLighting] = useState("All");
   const [selectedLineMarkings, setSelectedLineMarkings] = useState("All");
-
-  // Load Google Maps API
-  useEffect(() => {
-    if (!window.google?.maps) {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY`;
-      script.async = true;
-      document.head.appendChild(script);
-    }
-  }, []);
 
   const filteredCourts = useMemo(() => {
     return courts.filter((court) => {
@@ -91,11 +80,6 @@ const Index = () => {
           selectedLineMarkings={selectedLineMarkings}
           onLineMarkingsChange={setSelectedLineMarkings}
         />
-
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-slate-800 mb-4">Court Locations</h2>
-          <MapView courts={filteredCourts} />
-        </div>
 
         <div className="mb-6">
           <p className="text-slate-700 font-medium">
