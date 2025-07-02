@@ -17,7 +17,7 @@ const Index = () => {
 
   // Load Google Maps API
   useEffect(() => {
-    if (!window.google) {
+    if (!window.google?.maps) {
       const script = document.createElement('script');
       script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY`;
       script.async = true;

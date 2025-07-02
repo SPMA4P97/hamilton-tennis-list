@@ -19,12 +19,12 @@ export const MapView = ({ courts, mapboxToken }: MapViewProps) => {
   const map = useRef<any>(null);
 
   useEffect(() => {
-    if (!mapContainer.current || !window.google) return;
+    if (!mapContainer.current || !window.google?.maps) return;
 
     // Initialize Google Map
     map.current = new window.google.maps.Map(mapContainer.current, {
       zoom: 10,
-      center: { lat: 43.6532, lng: -79.3832 }, // Default to Toronto
+      center: { lat: 43.2557, lng: -79.8711 }, // Hamilton, Ontario
       styles: [
         {
           featureType: "all",
@@ -72,14 +72,13 @@ export const MapView = ({ courts, mapboxToken }: MapViewProps) => {
     });
 
     // Adjust map bounds to show all markers
-    const bounds = new window.google.maps.LatLngBounds();
-    courts.forEach(court => {
-      if (court.latitude && court.longitude) {
-        bounds.extend({ lat: court.latitude, lng: court.longitude });
-      }
-    });
-    
     if (courts.some(court => court.latitude && court.longitude)) {
+      const bounds = new window.google.maps.LatLngBounds();
+      courts.forEach(court => {
+        if (court.latitude && court.longitude) {
+          bounds.extend({ lat: court.latitude, lng: court.longitude });
+        }
+      });
       map.current.fitBounds(bounds);
     }
 
