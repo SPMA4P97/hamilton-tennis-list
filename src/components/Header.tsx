@@ -1,5 +1,4 @@
 
-import { MapPin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
@@ -11,7 +10,11 @@ export const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="bg-slate-600 p-3 rounded-full">
-              <MapPin className="h-8 w-8 text-white" />
+              <img 
+                src="/lovable-uploads/ad424f2e-abb0-4159-8020-b124afc55dcb.png" 
+                alt="Hamilton Tennis Logo" 
+                className="h-8 w-8 object-contain"
+              />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-slate-800">Hamilton Tennis Courts</h1>
