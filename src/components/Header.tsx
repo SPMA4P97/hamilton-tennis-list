@@ -9,7 +9,7 @@ export const Header = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="bg-slate-600 p-3 rounded-full">
+            <div className="bg-white p-3 rounded-full border-2 border-black">
               <img 
                 src="/lovable-uploads/15f2d297-3580-404e-82df-e973d3ba0ac7.png" 
                 alt="Hamilton Tennis Logo" 
@@ -18,7 +18,7 @@ export const Header = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-slate-800">Hamilton Tennis Courts</h1>
-              <p className="text-slate-600 text-sm">City of Hamilton Recreation Directory</p>
+              <p className="text-slate-600 text-sm">Opportunities for Tennis in Hamilton</p>
             </div>
           </div>
           

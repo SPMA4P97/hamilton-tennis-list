@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { CourtCard } from "@/components/CourtCard";
@@ -64,7 +63,7 @@ const Index = () => {
             Hamilton Tennis Court Directory
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Discover public tennis facilities throughout Hamilton. Find the perfect court for your next match.
+            Find your home court advantage — discover tennis courts near you.
           </p>
         </div>
 

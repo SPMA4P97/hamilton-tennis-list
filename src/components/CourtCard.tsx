@@ -68,7 +68,11 @@ export const CourtCard = ({ court }: CourtCardProps) => {
           )}
           
           {court.lighting && (
-            <Badge variant="outline" className="text-xs bg-amber-50 border-amber-200 text-amber-700 rounded-full px-3 py-1">
+            <Badge variant="outline" className={`text-xs rounded-full px-3 py-1 ${
+              court.lighting === 'Yes' 
+                ? 'bg-yellow-100 border-yellow-300 text-yellow-800' 
+                : 'bg-gray-100 border-gray-300 text-gray-700'
+            }`}>
               {court.lighting === 'Yes' ? 'Lit' : 'Unlit'}
             </Badge>
           )}
