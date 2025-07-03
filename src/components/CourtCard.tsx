@@ -27,7 +27,7 @@ interface CourtCardProps {
 
 export const CourtCard = ({ court }: CourtCardProps) => {
   // Use a generic tennis court placeholder image
-  const placeholderImage = "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop";
+  const placeholderImage = "https://media.istockphoto.com/id/1483011696/photo/tennis-ball-racket-and-court-ground-with-mockup-space-blurred-background-or-outdoor-sunshine.jpg?s=612x612&w=0&k=20&c=XHTdIS788Vry0iNFL04YaTfOoxAEojz4RqSz-ZA5fZY=";
   
   // Helper function to get tag styling based on exact specifications
   const getTagStyling = (field: string, value: string) => {
