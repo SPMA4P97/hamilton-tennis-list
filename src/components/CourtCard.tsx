@@ -5,23 +5,40 @@ import { Badge } from "@/components/ui/badge";
 interface Court {
   id: number;
   name: string;
-  location?: string;
+  location: string;
   address: string;
-  phone?: string;
+  phone: string;
+  courtType: string;
+  numberOfCourts: number;
+  amenities: string[];
+  priceRange: string;
+  rating: number;
+  image: string;
+  description: string;
+  seasonalOpportunity?: string;
+  lighting?: string;
+  lineMarkings?: string;
+}
+
+interface CleanCourt {
+  id: number;
+  name: string;
+  address: string;
+  location?: string;
   courtType?: string;
   numberOfCourts?: number;
-  amenities?: string[];
-  priceRange?: string;
   rating?: number;
   image?: string;
   description?: string;
+  latitude?: number;
+  longitude?: number;
   seasonalOpportunity?: string;
   lighting?: string;
   lineMarkings?: string;
 }
 
 interface CourtCardProps {
-  court: Court;
+  court: CleanCourt;
 }
 
 export const CourtCard = ({ court }: CourtCardProps) => {

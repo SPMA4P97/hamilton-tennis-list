@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react';
 interface CourtData {
   id: number;
   name: string;
-  address: string;
   location: string;
+  address: string;
+  phone: string;
   courtType: string;
   numberOfCourts: number;
+  amenities: string[];
+  priceRange: string;
   rating: number;
   image: string;
   description: string;
@@ -18,8 +21,25 @@ interface CourtData {
   lineMarkings?: string;
 }
 
+interface CleanCourt {
+  id: number;
+  name: string;
+  address: string;
+  location?: string;
+  courtType?: string;
+  numberOfCourts?: number;
+  rating?: number;
+  image?: string;
+  description?: string;
+  latitude?: number;
+  longitude?: number;
+  seasonalOpportunity?: string;
+  lighting?: string;
+  lineMarkings?: string;
+}
+
 export const useGoogleSheetData = () => {
-  const [courts, setCourts] = useState<CourtData[]>([]);
+  const [courts, setCourts] = useState<CleanCourt[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,8 +57,11 @@ export const useGoogleSheetData = () => {
         const parsedCourts: CourtData[] = lines.slice(1).map((line, index) => {
           const values = line.split(',').map(value => value.replace(/"/g, '').trim());
           
+          // Updated column mapping based on actual headers:
+        
+          
           // Clean up court type - handle multiple types and remove "facility" mentions
-          const rawCourtType = values[10] || 'Hard';
+          const rawCourtType = values[11] || 'Hard';
           let cleanCourtType = rawCourtType.replace(/\s*facility\s*/gi, '').trim();
           
           // Handle multiple court types - take the first one for filtering
@@ -55,22 +78,22 @@ export const useGoogleSheetData = () => {
             cleanCourtType = 'Grass';
           }
 
-          const court: CourtData = {
-            id: index + 1,
-            name: values[2]?.trim() || 'Unnamed Court',
-            address: values[3]?.trim() || '',
-            location: values[1]?.trim() || values[3]?.trim() || 'Unknown',
-            courtType: cleanCourtType,
-            numberOfCourts: parseInt(values[6]) || 1,
-            rating: parseFloat(values[13]) || 4.0,
-            image: values[23]?.trim() || 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop',
-            description: values[15]?.trim() || `${values[1]?.trim() || 'Unknown'} facility`,
-            latitude: values[16] ? parseFloat(values[16]) : undefined,
-            longitude: values[17] ? parseFloat(values[17]) : undefined,
-            seasonalOpportunity: values[8]?.trim() || 'All Year',
-            lighting: values[9]?.trim() || 'No',
-            lineMarkings: values[12]?.trim() || 'Tennis',
-          };
+         const court: CourtData = {
+              id: index + 1,
+              name: values[3]?.trim() || 'Unnamed Court', // Location Name
+              address: values[4]?.trim() || '',           // Address
+              location: values[1]?.trim() || values[4]?.trim() || 'Unknown', // Classification or Address
+              courtType: cleanCourtType,                  // Cleaned Court Type
+              numberOfCourts: parseInt(values[7]) || 1,   // Total Courts #
+              rating: parseFloat(values[14]) || 4.0,      // Condition /10
+              image: values[24]?.trim() || 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop',
+              description: values[16]?.trim() || `${values[1]?.trim() || 'Unknown'} facility`, // Notes or fallback
+              latitude: values[17] ? parseFloat(values[17]) : undefined,
+              longitude: values[18] ? parseFloat(values[18]) : undefined,
+              seasonalOpportunity: values[9]?.trim() || 'All Year',
+              lighting: values[10]?.trim() || 'No',
+              lineMarkings: values[13]?.trim() || 'Tennis',
+            };
           
           return court;
         });
