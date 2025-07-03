@@ -1,3 +1,4 @@
+
 import { MapPin, Users } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -5,13 +6,15 @@ import { Badge } from "@/components/ui/badge";
 interface Court {
   id: number;
   name: string;
-  location: string;
   address: string;
+  location: string;
   courtType: string;
   numberOfCourts: number;
   rating: number;
   image: string;
   description: string;
+  latitude?: number;
+  longitude?: number;
   seasonalOpportunity?: string;
   lighting?: string;
   lineMarkings?: string;
