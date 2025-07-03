@@ -55,9 +55,10 @@ export const EnhancedFilterSection = ({
                 <SelectValue placeholder="All Seasons" />
               </SelectTrigger>
               <SelectContent className="bg-white border-slate-200">
-                <SelectItem value="All">All Seasons</SelectItem>
+                <SelectItem value="All">All Types</SelectItem>
                 <SelectItem value="All Year">All Year</SelectItem>
                 <SelectItem value="Summer only">Summer Only</SelectItem>
+                <SelectItem value="Winter only">Winter Only</SelectItem>
               </SelectContent>
             </Select>
           </div>
