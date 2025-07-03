@@ -56,7 +56,7 @@ export const EnhancedFilterSection = ({
               </SelectTrigger>
               <SelectContent className="bg-white border-slate-200">
                 <SelectItem value="All">All Types</SelectItem>
-                <SelectItem value="All Year">All Year</SelectItem>
+                <SelectItem value="All Year">Full Year</SelectItem>
                 <SelectItem value="Summer only">Summer Only</SelectItem>
                 <SelectItem value="Winter only">Winter Only</SelectItem>
               </SelectContent>
@@ -70,7 +70,7 @@ export const EnhancedFilterSection = ({
                 <SelectValue placeholder="Any Lighting" />
               </SelectTrigger>
               <SelectContent className="bg-white border-slate-200">
-                <SelectItem value="All">Any Lighting</SelectItem>
+                <SelectItem value="All">All Types</SelectItem>
                 <SelectItem value="Yes">Lighting</SelectItem>
                 <SelectItem value="No">No Lighting</SelectItem>
               </SelectContent>
@@ -84,10 +84,10 @@ export const EnhancedFilterSection = ({
                 <SelectValue placeholder="All Markings" />
               </SelectTrigger>
               <SelectContent className="bg-white border-slate-200">
-                <SelectItem value="All">All Markings</SelectItem>
+                <SelectItem value="All">All Types</SelectItem>
+                <SelectItem value="Both">Tennis + Pickleball</SelectItem>
                 <SelectItem value="Tennis">Tennis</SelectItem>
                 <SelectItem value="Pickleball">Pickleball</SelectItem>
-                <SelectItem value="Both">Both</SelectItem>
               </SelectContent>
             </Select>
           </div>
