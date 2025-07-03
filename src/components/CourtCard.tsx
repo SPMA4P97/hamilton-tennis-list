@@ -80,7 +80,15 @@ export const CourtCard = ({ court }: CourtCardProps) => {
   };
 
   // Build tag list in strict order, removing duplicates by display value
-
+  const rawTags = [
+    { field: "seasonalOpportunity", value: court.seasonalOpportunity },
+    { field: "courtType", value: court.courtType },
+    { field: "lighting", value: court.lighting },
+    {
+      field: "lineMarkings",
+      value: court.lineMarkings?.replace(/\s*Lines\s*/gi, "").trim(),
+    },
+  ].filter((tag) => tag.value && tag.value.trim() !== "");
 
   const seen = new Set<string>();
   const tags = rawTags.filter((tag) => {
@@ -100,8 +108,8 @@ export const CourtCard = ({ court }: CourtCardProps) => {
         />
       </div>
 
-      <CardHeader className="pb-0">
-        <h3 className="text-xl font-semibold text-slate-800 leading-snug break-words whitespace-normal mb-2">
+      <CardHeader className="pb-3">
+        <h3 className="text-xl font-semibold text-slate-800 leading-snug break-words whitespace-normal">
           {court.name}
         </h3>
       </CardHeader>
