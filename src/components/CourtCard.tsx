@@ -29,31 +29,33 @@ export const CourtCard = ({ court }: CourtCardProps) => {
   // Use a generic tennis court placeholder image
   const placeholderImage = "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop";
   
-  // Helper function to get tag styling based on value
+  // Helper function to get tag styling based on exact specifications
   const getTagStyling = (field: string, value: string) => {
     const baseClasses = "text-xs rounded-full px-3 py-1 font-medium";
     
     switch (field) {
       case 'seasonalOpportunity':
-        if (value === 'All Year') return `${baseClasses} bg-green-100 border-green-200 text-green-800`;
-        if (value === 'Summer Only') return `${baseClasses} bg-yellow-100 border-yellow-200 text-yellow-800`;
-        break;
-      case 'lighting':
-        if (value === 'Yes' || value === 'Lit') return `${baseClasses} bg-blue-100 border-blue-200 text-blue-800`;
-        if (value === 'No' || value === 'Unlit') return `${baseClasses} bg-gray-100 border-gray-200 text-gray-700`;
-        break;
-      case 'lineMarkings':
-        if (value === 'Tennis') return `${baseClasses} bg-orange-100 border-orange-200 text-orange-800`;
-        if (value === 'Pickleball') return `${baseClasses} bg-purple-100 border-purple-200 text-purple-800`;
-        if (value === 'Tennis + Pickleball') return `${baseClasses} bg-teal-100 border-teal-200 text-teal-800`;
+        if (value === 'All Year') return `${baseClasses} bg-green-100 text-green-800`;
+        if (value === 'Summer Only') return `${baseClasses} bg-yellow-100 text-yellow-800`;
         break;
       case 'courtType':
-        // Default styling for court types
-        return `${baseClasses} bg-slate-100 border-slate-200 text-slate-700`;
+        if (value === 'Hard Court' || value === 'Hard') return `${baseClasses} bg-blue-900 text-white`;
+        if (value === 'Clay Court' || value === 'Clay') return `${baseClasses} bg-orange-200 text-orange-900`;
+        if (value === 'Grass Court' || value === 'Grass') return `${baseClasses} bg-green-200 text-green-800`;
+        break;
+      case 'lighting':
+        if (value === 'Yes' || value === 'Lit') return `${baseClasses} bg-yellow-100 text-yellow-800`;
+        if (value === 'No' || value === 'Unlit') return `${baseClasses} bg-gray-100 text-gray-700`;
+        break;
+      case 'lineMarkings':
+        if (value === 'Tennis') return `${baseClasses} bg-green-100 text-green-800`;
+        if (value === 'Pickleball') return `${baseClasses} bg-green-200 text-green-800`;
+        if (value === 'Tennis + Pickleball') return `${baseClasses} bg-green-800 text-white`;
+        break;
     }
     
     // Default styling
-    return `${baseClasses} bg-slate-100 border-slate-200 text-slate-700`;
+    return `${baseClasses} bg-slate-100 text-slate-700`;
   };
 
   // Helper function to format display value
@@ -67,7 +69,7 @@ export const CourtCard = ({ court }: CourtCardProps) => {
     return value;
   };
 
-  // Create array of tags to display in order
+  // Create array of tags to display in exact order specified
   const tags = [
     { field: 'seasonalOpportunity', value: court.seasonalOpportunity },
     { field: 'courtType', value: court.courtType },
