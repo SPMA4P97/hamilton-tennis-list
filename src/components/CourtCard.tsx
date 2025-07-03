@@ -109,7 +109,7 @@ export const CourtCard = ({ court }: CourtCardProps) => {
       </div>
 
       <CardHeader className="pb-3">
-        <h3 className="text-xl font-semibold text-slate-800 leading-tight">
+        <h3 className="text-xl font-semibold text-slate-800 leading-snug break-words whitespace-normal">
           {court.name}
         </h3>
       </CardHeader>
