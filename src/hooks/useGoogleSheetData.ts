@@ -40,28 +40,50 @@ export const useGoogleSheetData = () => {
         const parsedCourts: CourtData[] = lines.slice(1).map((line, index) => {
           const values = line.split(',').map(value => value.replace(/"/g, '').trim());
           
-          // Clean up court type - remove "facility" mentions
-          const rawCourtType = values[12] || 'Hard';
-          const cleanCourtType = rawCourtType.replace(/\s*facility\s*/gi, '').trim();
+          // Updated column mapping based on actual headers:
+          // 0: Confirmed, 1: Classification, 2: Open?, 3: Location Name, 4: Address, 
+          // 5: Outdoor Courts #, 6: Indoor Courts #, 7: Total Courts #, 8: Indoor/Outdoor/Both,
+          // 9: Seasonal Opportunity, 10: Lighting, 11: Court Type, 12: Court Type Notes,
+          // 13: Lines, 14: Condition /10, 15: Surfaced?, 16: Location Notes,
+          // 17: Latitude, 18: Longitude, 19: Confirmed Lat/Long., 20: Club LINK,
+          // 21: Ward, 22: Ward Pop. Serve, 23: Cost, 24: Image
           
+          // Clean up court type - handle multiple types and remove "facility" mentions
+          const rawCourtType = values[11] || 'Hard';
+          let cleanCourtType = rawCourtType.replace(/\s*facility\s*/gi, '').trim();
+          
+          // Handle multiple court types - take the first one for filtering
+          if (cleanCourtType.includes(',')) {
+            cleanCourtType = cleanCourtType.split(',')[0].trim();
+          }
+          if (cleanCourtType.toLowerCase().includes('har-tru')) {
+            cleanCourtType = 'Clay';
+          } else if (cleanCourtType.toLowerCase().includes('hard')) {
+            cleanCourtType = 'Hard';
+          } else if (cleanCourtType.toLowerCase().includes('clay')) {
+            cleanCourtType = 'Clay';
+          } else if (cleanCourtType.toLowerCase().includes('grass')) {
+            cleanCourtType = 'Grass';
+          }
+
           const court: CourtData = {
             id: index + 1,
             name: values[3] || 'Unnamed Court', // Location Name
             location: values[4] || 'Unknown Location', // Address
             address: values[4] || '', // Address
-            phone: '', // Not displayed
+            phone: '', // Not provided in data
             courtType: cleanCourtType, // Court Type (cleaned)
-            numberOfCourts: parseInt(values[8]) || 1, // Total Courts #
-            amenities: values[11] ? [values[11]] : [], // Lighting as amenity
-            priceRange: '', // Not displayed
+            numberOfCourts: parseInt(values[7]) || 1, // Total Courts #
+            amenities: values[10] ? [values[10]] : [], // Lighting as amenity
+            priceRange: values[23] || '', // Cost
             rating: 4.0, // Default rating
             image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', // Default image
-            description: values[17] || `${values[1]}`, // Location Notes or Classification
-            latitude: values[18] ? parseFloat(values[18]) : undefined, // Latitude
-            longitude: values[19] ? parseFloat(values[19]) : undefined, // Longitude
-            seasonalOpportunity: values[10] || 'All Year', // Seasonal Opportunity
-            lighting: values[11] || 'No', // Lighting
-            lineMarkings: values[14] || 'Tennis', // Lines?
+            description: values[16] || `${values[1]} facility`, // Location Notes or Classification
+            latitude: values[17] ? parseFloat(values[17]) : undefined, // Latitude
+            longitude: values[18] ? parseFloat(values[18]) : undefined, // Longitude
+            seasonalOpportunity: values[9] || 'All Year', // Seasonal Opportunity
+            lighting: values[10] || 'No', // Lighting
+            lineMarkings: values[13] || 'Tennis', // Lines
           };
           
           return court;
