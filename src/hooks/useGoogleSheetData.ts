@@ -77,8 +77,6 @@ export const useGoogleSheetData = () => {
               lighting: values[10]?.trim() || 'No',
               lineMarkings: values[13]?.trim() || 'Tennis',
             };
-
-          };
           
           return court;
         });
