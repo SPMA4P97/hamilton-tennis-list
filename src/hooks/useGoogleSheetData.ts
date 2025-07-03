@@ -41,12 +41,7 @@ export const useGoogleSheetData = () => {
           const values = line.split(',').map(value => value.replace(/"/g, '').trim());
           
           // Updated column mapping based on actual headers:
-          // 0: Confirmed, 1: Classification, 2: Open?, 3: Location Name, 4: Address, 
-          // 5: Outdoor Courts #, 6: Indoor Courts #, 7: Total Courts #, 8: Indoor/Outdoor/Both,
-          // 9: Seasonal Opportunity, 10: Lighting, 11: Court Type, 12: Court Type Notes,
-          // 13: Lines, 14: Condition /10, 15: Surfaced?, 16: Location Notes,
-          // 17: Latitude, 18: Longitude, 19: Confirmed Lat/Long., 20: Club LINK,
-          // 21: Ward, 22: Ward Pop. Serve, 23: Cost, 24: Image
+        
           
           // Clean up court type - handle multiple types and remove "facility" mentions
           const rawCourtType = values[11] || 'Hard';
@@ -66,24 +61,23 @@ export const useGoogleSheetData = () => {
             cleanCourtType = 'Grass';
           }
 
-          const court: CourtData = {
-            id: index + 1,
-            name: values[3] || 'Unnamed Court', // Location Name
-            location: values[4] || 'Unknown Location', // Address
-            address: values[4] || '', // Address
-            phone: '', // Not provided in data
-            courtType: cleanCourtType, // Court Type (cleaned)
-            numberOfCourts: parseInt(values[7]) || 1, // Total Courts #
-            amenities: values[10] ? [values[10]] : [], // Lighting as amenity
-            priceRange: values[23] || '', // Cost
-            rating: 4.0, // Default rating
-            image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop', // Default image
-            description: values[16] || `${values[1]} facility`, // Location Notes or Classification
-            latitude: values[17] ? parseFloat(values[17]) : undefined, // Latitude
-            longitude: values[18] ? parseFloat(values[18]) : undefined, // Longitude
-            seasonalOpportunity: values[9] || 'All Year', // Seasonal Opportunity
-            lighting: values[10] || 'No', // Lighting
-            lineMarkings: values[13] || 'Tennis', // Lines
+         const court: CourtData = {
+              id: index + 1,
+              name: values[3]?.trim() || 'Unnamed Court', // Location Name
+              address: values[4]?.trim() || '',           // Address
+              location: values[1]?.trim() || values[4]?.trim() || 'Unknown', // Classification or Address
+              courtType: cleanCourtType,                  // Cleaned Court Type
+              numberOfCourts: parseInt(values[7]) || 1,   // Total Courts #
+              rating: parseFloat(values[14]) || 4.0,      // Condition /10
+              image: values[24]?.trim() || 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop',
+              description: values[16]?.trim() || `${values[1]?.trim() || 'Unknown'} facility`, // Notes or fallback
+              latitude: values[17] ? parseFloat(values[17]) : undefined,
+              longitude: values[18] ? parseFloat(values[18]) : undefined,
+              seasonalOpportunity: values[9]?.trim() || 'All Year',
+              lighting: values[10]?.trim() || 'No',
+              lineMarkings: values[13]?.trim() || 'Tennis',
+            };
+
           };
           
           return court;
