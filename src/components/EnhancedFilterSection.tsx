@@ -70,8 +70,8 @@ export const EnhancedFilterSection = ({
               </SelectTrigger>
               <SelectContent className="bg-white border-slate-200">
                 <SelectItem value="All">Any Lighting</SelectItem>
-                <SelectItem value="Yes">Lit Courts</SelectItem>
-                <SelectItem value="No">Unlit Courts</SelectItem>
+                <SelectItem value="Yes">Lighting</SelectItem>
+                <SelectItem value="No">No Lighting</SelectItem>
               </SelectContent>
             </Select>
           </div>
