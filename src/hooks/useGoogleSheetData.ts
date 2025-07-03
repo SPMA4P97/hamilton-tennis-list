@@ -71,8 +71,8 @@ export const useGoogleSheetData = () => {
               latitude: values[17] ? parseFloat(values[17]) : undefined,
               longitude: values[18] ? parseFloat(values[18]) : undefined,
               seasonalOpportunity: values[9]?.trim() || 'All Year',
-              lighting: values[9]?.trim() || 'No',
-              lineMarkings: values[12]?.trim() || 'Tennis',
+              lighting: values[10]?.trim() || 'No',
+              lineMarkings: values[13]?.trim() || 'Tennis',
             };
           
           return court;
