@@ -80,15 +80,6 @@ export const CourtCard = ({ court }: CourtCardProps) => {
   };
 
   // Build tag list in strict order, removing duplicates by display value
-  const rawTags = [
-  { field: "seasonalOpportunity", value: court["Seasonal Opportunity"] },
-  { field: "courtType", value: court["Court Type"] },
-  { field: "lighting", value: court["Lighting"] },
-  {
-    field: "lineMarkings",
-    value: court["Lines"]?.replace(/\s*Lines\s*/gi, "").trim(),
-  },
-];
 
 
   const seen = new Set<string>();
