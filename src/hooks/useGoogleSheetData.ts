@@ -63,8 +63,8 @@ export const useGoogleSheetData = () => {
 
          const court: CourtData = {
               id: index + 1,
-              name: values[3]?.trim() || 'Unnamed Court', // Location Name
-              address: values[4]?.trim() || '',           // Address
+              name: values[2]?.trim() || 'Unnamed Court', // Location Name
+              address: values[3]?.trim() || '',           // Address
               location: values[1]?.trim() || values[4]?.trim() || 'Unknown', // Classification or Address
               courtType: cleanCourtType,                  // Cleaned Court Type
               numberOfCourts: parseInt(values[7]) || 1,   // Total Courts #

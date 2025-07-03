@@ -7,11 +7,8 @@ interface Court {
   name: string;
   location: string;
   address: string;
-  phone: string;
   courtType: string;
   numberOfCourts: number;
-  amenities: string[];
-  priceRange: string;
   rating: number;
   image: string;
   description: string;
